@@ -1,0 +1,71 @@
+@startuml
+
+package StrategyPattern {
+
+    class Client {
+        + main(String[] args)
+    }
+
+    abstract class PaymentApp {
+        + pay(int amount)
+    }
+
+    class CreditCard extends PaymentApp {
+        - String CreditNo
+        + CreditCard(String CreditNo)
+        + pay(int amount)
+    }
+
+    class DebitCard extends PaymentApp {
+        - String DebitNo
+        + DebitCard(String DebitNo)
+        + pay(int amount)
+    }
+
+    class UPI extends PaymentApp {
+        - UPIprovider upiType
+        + UPI(UPIprovider upiprovider)
+        + pay(int amount)
+    }
+
+    class PayPal extends PaymentApp {
+        - String PayPalid
+        + PayPal(String PayPalid)
+        + pay(int amount)
+    }
+
+    class Pay extends PaymentApp {
+        - PaymentApp payment
+        + Pay(PaymentApp payment)
+        + pay(int amount)
+    }
+
+    abstract class UPIprovider {
+        + payStatus(int amount)
+    }
+
+    class Gpay extends UPIprovider {
+        - String gpayID
+        + Gpay(String gpayID)
+        + payStatus(int amount)
+    }
+
+    class Paytm extends UPIprovider {
+        - String paymID
+        + Paytm(String paymID)
+        + payStatus(int amount)
+    }
+
+    ' Relationships
+    Client --> PaymentApp
+    Pay --> PaymentApp
+    UPI --> UPIprovider
+    Gpay --> UPIprovider
+    Paytm --> UPIprovider
+    CreditCard --> PaymentApp
+    DebitCard --> PaymentApp
+    PayPal --> PaymentApp
+
+}
+
+@enduml
