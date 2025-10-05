@@ -1,0 +1,50 @@
+@startuml
+
+package FactoryDesignPattern {
+
+    class Client {
+        + main(String[] args)
+    }
+
+    abstract class Burger {
+        + prepare()
+    }
+
+    class PrepareBurger extends Burger {
+        - BurgerTypes burger
+        - BurgerFactory burgerFactory
+        + PrepareBurger(BurgerFactory factory, String burgerType)
+        + prepare()
+    }
+
+    class BurgerFactory {
+        + burgerType(String name) : BurgerTypes
+    }
+
+    abstract class BurgerTypes {
+        + makeBurger()
+    }
+
+    class BasicBurger extends BurgerTypes {
+        + makeBurger()
+    }
+
+    class StandardBurger extends BurgerTypes {
+        + makeBurger()
+    }
+
+    class PremiumBurger extends BurgerTypes {
+        + makeBurger()
+    }
+
+    ' Relationships
+    Client --> PrepareBurger
+    PrepareBurger --> BurgerFactory
+    PrepareBurger --> BurgerTypes
+    BurgerFactory --> BurgerTypes
+    BasicBurger --> BurgerTypes
+    StandardBurger --> BurgerTypes
+    PremiumBurger --> BurgerTypes
+}
+
+@enduml
