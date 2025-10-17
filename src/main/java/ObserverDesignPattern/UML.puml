@@ -1,0 +1,43 @@
+@startuml
+' Interfaces
+interface IChannel {
+    +subscribe(subscriber: ISubscriber)
+    +unsubscribe(subscriber: ISubscriber)
+    +notifySubscribers()
+    +uploadVideo(video: String)
+    +getVideo(): String
+}
+
+interface ISubscriber {
+    +update()
+}
+
+' Classes
+class Channel {
+    -newVideo: String
+    -channelName: String
+    -subscribers: List<ISubscriber>
+    +subscribe(subscriber: ISubscriber)
+    +unsubscribe(subscriber: ISubscriber)
+    +notifySubscribers()
+    +uploadVideo(video: String)
+    +getVideo(): String
+}
+
+class Subscriber {
+    -name: String
+    -channel: IChannel
+    +update()
+}
+
+class main {
+    +main(args: String[])
+}
+
+' Relationships
+IChannel <|.. Channel
+ISubscriber <|.. Subscriber
+Channel "1" o-- "*" ISubscriber : subscribers
+Subscriber --> IChannel : channel
+
+@enduml
